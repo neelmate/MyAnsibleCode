@@ -9,7 +9,7 @@
       private: no
 
   tasks:
-    - name: ENSURE TENANT BRIDGE DOMAIN EXISTS
+    - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_APP_BD
       aci_bd:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
@@ -19,17 +19,7 @@
         tenant: "PROD_TN"
         bd: "B2CC_ENTARCH_APP_BD"
         vrf: "OPC_VRF"
-        description: "BD Created Using Ansible"
-
-    - name: ENSURE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_APP_BD EXISTS
-      aci_bd_subnet:
-        host: "{{ ansible_host }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
-        state: "present"
-        validate_certs: False
-        tenant: "PROD_TN"
-        bd: "B2CC_ENTARCH_APP_BD"
+        arp_flooding: yes
         gateway: "10.51.68.254"
         mask: 24
         description: "Subnet Created Using Ansible"

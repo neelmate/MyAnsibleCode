@@ -5,16 +5,16 @@
   gather_facts: false
   vars_prompt:
     - name: tenant
-      prompt: What would you like to name your Tenant?
+      prompt: Which Tenant you want this change?
       private: no
     - name: vrf
-      prompt: What would you like to name your VRF?
+      prompt: Type name of your VRF?
       private: no
     - name: bd1
-      prompt: What would you like to name your VRF?
+      prompt: Type name of first Bridge Domain BD1?
       private: no
     - name: bd2
-      prompt: What would you like to name your VRF?
+      prompt: Type name of second Bridge Domain BD2?
       private: no
   tasks:
     - name: TASK 01 - ENSURE APPLICATIONS TENANT EXISTS

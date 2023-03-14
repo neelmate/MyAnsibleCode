@@ -2,93 +2,87 @@
 - name: ENSURE APPLICATION CONFIGURATION EXISTS
   hosts: apic
   connection: local
-  gather_facts: False
+  gather_facts: false
   vars_prompt:
-    - name: "tenant"
-      prompt: "What would you like to name your Tenant?"
+    - name: tenant
+      prompt: What would you like to name your Tenant?
       private: no
-    - name: "vrf"
-      prompt: "What would you like to name your VRF?"
+    - name: vrf
+      prompt: What would you like to name your VRF?
       private: no
-    - name: "bd1"
-      prompt: "What would you like to name your VRF?"
+    - name: bd1
+      prompt: What would you like to name your VRF?
       private: no
-    - name: "bd2"
-      prompt: "What would you like to name your VRF?"
+    - name: bd2
+      prompt: What would you like to name your VRF?
       private: no
-      
   tasks:
     - name: TASK 01 - ENSURE APPLICATIONS TENANT EXISTS
       aci_tenant:
         host: "{{ inventory_hostname }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: "present"
-        validate_certs: False
+        state: present
+        validate_certs: false
         tenant: "{{ tenant }}"
-        description: "Tenant Created Using Ansible"
+        description: Tenant Created Using Ansible
       tags: tenant, vrf, bd, filter, contract, app, epg
-      
-  - name: ENSURE TENANT VRF EXISTS
+    - name: ENSURE TENANT VRF EXISTS
       aci_vrf:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: "present"
-        validate_certs: False
+        state: present
+        validate_certs: false
         tenant: "{{ tenant }}"
         vrf: "{{ vrf }}"
-        description: "VRF Created Using Ansible"
+        description: VRF Created Using Ansible
       tags: vrf, bd
-      
-    - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_APP_BD
+    - name: CREATE BD SUBNET B2CC_ENTARCH_APP_BD
       aci_bd:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: "present"
-        validate_certs: False
+        state: present
+        validate_certs: false
         tenant: "{{ tenant }}"
         bd: "{{ bd1 }}"
         vrf: "{{ vrf }}"
         arp_flooding: yes
-        description: "INFRNET-4191 Openstack"
-
+        description: INFRNET-4191 Openstack
     - name: Create SUBNET for B2CC_ENTARCH_APP_BD
       aci_bd_subnet:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: "present"
-        validate_certs: False
+        state: present
+        validate_certs: false
         tenant: "{{ tenant }}"
         bd: "{{ bd1 }}"
-        gateway: "10.51.68.254"
+        gateway: 10.51.68.254
         mask: 24
-        description: "INFRNET-4191 Openstack"
-        
+        description: INFRNET-4191 Openstack
     - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_NFS_BD
       aci_bd:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: "present"
-        validate_certs: False
+        state: present
+        validate_certs: false
         tenant: "{{ tenant }}"
         bd: "{{ bd2 }}"
         vrf: "{{ vrf }}"
         arp_flooding: yes
-        description: "INFRNET-4191 Openstack"
-        
-    - name: Create SUBNET for B2CC_ENTARCH_NFS_BD
-       aci_bd_subnet:
-        host: "{{ ansible_host }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
-        state: "present"
-        validate_certs: False
-        tenant: "{{ tenant }}"
-        bd: "{{ bd2 }}"
-        gateway: "10.51.168.254"
-        mask: 24
-        description: "INFRNET-4191 Openstack"
+        description: INFRNET-4191 Openstack
+    - name:
+        aci_bd_subnet:
+          host: "{{ ansible_host }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          state: present
+          validate_certs: false
+          tenant: "{{ tenant }}"
+          bd: "{{ bd2 }}"
+          gateway: 10.51.168.254
+          mask: 24
+          description: INFRNET-4191 Openstack

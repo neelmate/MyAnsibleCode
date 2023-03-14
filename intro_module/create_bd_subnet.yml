@@ -72,7 +72,6 @@
         bd: "{{ bd2 }}"
         vrf: "{{ vrf }}"
         arp_flooding: yes
-        description: INFRNET-4191 Openstack
     - name:
         aci_bd_subnet:
           host: "{{ ansible_host }}"
@@ -84,4 +83,3 @@
           bd: "{{ bd2 }}"
           gateway: 10.51.168.254
           mask: 24
- 

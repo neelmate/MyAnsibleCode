@@ -48,7 +48,7 @@
         tenant: "{{ tenant }}"
         bd: "{{ bd1 }}"
         vrf: "{{ vrf }}"
-        arp_flooding: yes
+        arp_flooding: true
         description: INFRNET-4191 Openstack
     - name: Create SUBNET for B2CC_ENTARCH_APP_BD
       aci_bd_subnet:
@@ -71,7 +71,7 @@
         tenant: "{{ tenant }}"
         bd: "{{ bd2 }}"
         vrf: "{{ vrf }}"
-        arp_flooding: yes
+        arp_flooding: true
     - name:
         aci_bd_subnet:
           host: "{{ ansible_host }}"

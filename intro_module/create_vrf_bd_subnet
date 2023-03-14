@@ -9,17 +9,6 @@
       private: no
 
   tasks:
-    - name: ENSURE TENANT VRF EXISTS
-      aci_vrf:
-        host: "{{ ansible_host }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
-        state: "present"
-        validate_certs: False
-        tenant: "{{ tenant }}"
-        vrf: "{{ vrf }}"
-        description: "VRF Created Using Ansible"
-
     - name: ENSURE TENANT BRIDGE DOMAIN EXISTS
       aci_bd:
         host: "{{ ansible_host }}"
@@ -27,9 +16,9 @@
         password: "{{ password }}"
         state: "present"
         validate_certs: False
-        tenant: "{{ tenant }}"
-        bd: "{{ bd }}"
-        vrf: "{{ vrf }}"
+        tenant: "PROD_TN"
+        bd: "B2CC_ENTARCH_APP_BD"
+        vrf: "OPC_VRF"
         description: "BD Created Using Ansible"
 
     - name: ENSURE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_APP_BD EXISTS
@@ -39,8 +28,8 @@
         password: "{{ password }}"
         state: "present"
         validate_certs: False
-        tenant: "{{ tenant }}"
-        bd: "{{ bd }}"
+        tenant: "PROD_TN"
+        bd: "B2CC_ENTARCH_APP_BD"
         gateway: "10.51.68.254"
         mask: 24
         description: "Subnet Created Using Ansible"
@@ -52,8 +41,8 @@
         password: "{{ password }}"
         state: "present"
         validate_certs: False
-        tenant: "{{ tenant }}"
-        bd: "{{ bd }}"
+        tenant: "PROD_TN"
+        bd: "B2CC_ENTARCH_APP_BD"
         gateway: "10.51.168.254"
         mask: 24
         description: "Subnet Created Using Ansible"

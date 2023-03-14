@@ -24,7 +24,7 @@
         mask: 24
         description: "Subnet Created Using Ansible"
 
-    - name: ENSURE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_NFS_BD EXISTS
+    - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_NFS_BD
       aci_bd_subnet:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
@@ -32,7 +32,9 @@
         state: "present"
         validate_certs: False
         tenant: "PROD_TN"
-        bd: "B2CC_ENTARCH_APP_BD"
+        bd: "B2CC_ENTARCH_NFS_BD"
+        vrf: "OPC_VRF"
+        arp_flooding: yes
         gateway: "10.51.168.254"
         mask: 24
         description: "Subnet Created Using Ansible"

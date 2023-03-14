@@ -1,5 +1,4 @@
 ---
-tasks:
 - name: ENSURE APPLICATION CONFIGURATION EXISTS
   hosts: apic
   connection: local
@@ -12,6 +11,7 @@ tasks:
       prompt: "What would you like to name your VRF?"
       private: no
 
+tasks:
     - name: TASK 01 - ENSURE APPLICATIONS TENANT EXISTS
       aci_tenant:
         host: "{{ inventory_hostname }}"
@@ -20,7 +20,7 @@ tasks:
         state: "present"
         validate_certs: False
         tenant: "{{ tenant }}"
-        descr: "Tenant Created Using Ansible"
+        description: "Tenant Created Using Ansible"
       tags: tenant, vrf, bd, filter, contract, app, epg
       
   - name: ENSURE TENANT VRF EXISTS

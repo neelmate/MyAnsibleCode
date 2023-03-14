@@ -3,7 +3,22 @@
   hosts: apic
   connection: local
   gather_facts: False
-      
+  vars_prompt:
+    - name: "tenant"
+      prompt: "What would you like to name your Tenant?"
+      private: no
+
+  tasks:
+    - name: ENSURE TENANT VRF EXISTS
+      aci_vrf:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        description: "VRF Created Using Ansible"
+        
   tasks:
     - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_APP_BD
       aci_bd:

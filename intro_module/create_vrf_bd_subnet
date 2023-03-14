@@ -20,12 +20,24 @@
         bd: "B2CC_ENTARCH_APP_BD"
         vrf: "OPC_VRF"
         arp_flooding: yes
+        enable_routing: true
+        description: "INFRNET-4191 Openstack"
+
+    - name: Create SUBNET for B2CC_ENTARCH_APP_BD
+      aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "PROD_TN"
+        bd: "B2CC_ENTARCH_APP_BD"
         gateway: "10.51.68.254"
         mask: 24
-        description: "Subnet Created Using Ansible"
-
+        description: "INFRNET-4191 Openstack"
+        
     - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_NFS_BD
-      aci_bd_subnet:
+      aci_bd:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
@@ -35,7 +47,18 @@
         bd: "B2CC_ENTARCH_NFS_BD"
         vrf: "OPC_VRF"
         arp_flooding: yes
+        enable_routing: true
+        description: "INFRNET-4191 Openstack"
+        
+    - name: Create SUBNET for B2CC_ENTARCH_NFS_BD
+       aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "PROD_TN"
+        bd: "B2CC_ENTARCH_NFS_BD"
         gateway: "10.51.168.254"
         mask: 24
-        description: "Subnet Created Using Ansible"
-        
+        description: "INFRNET-4191 Openstack"

@@ -5,7 +5,6 @@
   gather_facts: False
   vars_prompt:
     - name: "tenant"
-      vrf: "vrf"
       prompt: "What would you like to name your Tenant?"
       private: no
 

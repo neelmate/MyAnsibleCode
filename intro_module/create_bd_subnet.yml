@@ -17,9 +17,9 @@
         state: "present"
         validate_certs: False
         tenant: "{{ tenant }}"
+        vrf: "{{ vrf }}"
         description: "VRF Created Using Ansible"
         
-  tasks:
     - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_APP_BD
       aci_bd:
         host: "{{ ansible_host }}"

@@ -18,7 +18,7 @@
       private: no
   tasks:
     - name: TASK 01 - ENSURE APPLICATIONS TENANT EXISTS
-      aci_tenant:
+      cisco.aci.aci_tenant:
         host: "{{ inventory_hostname }}"
         username: "{{ username }}"
         password: "{{ password }}"
@@ -28,7 +28,7 @@
         description: Tenant Created Using Ansible
       tags: tenant, vrf, bd, filter, contract, app, epg
     - name: ENSURE TENANT VRF EXISTS
-      aci_vrf:
+      cisco.aci.aci_vrf:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
@@ -73,7 +73,7 @@
         vrf: "{{ vrf }}"
         arp_flooding: true
     - name:
-        cisco.aci.aci_bd_subnet:
+      cisco.aci.aci_bd_subnet:
           host: "{{ ansible_host }}"
           username: "{{ username }}"
           password: "{{ password }}"

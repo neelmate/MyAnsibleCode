@@ -61,7 +61,6 @@
         bd: "{{ bd1 }}"
         gateway: 10.51.68.254
         mask: 24
-        description: INFRNET-4191 Openstack
     - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_NFS_BD
       aci_bd:
         host: "{{ ansible_host }}"
@@ -85,4 +84,4 @@
           bd: "{{ bd2 }}"
           gateway: 10.51.168.254
           mask: 24
-          description: INFRNET-4191 Openstack
+ 

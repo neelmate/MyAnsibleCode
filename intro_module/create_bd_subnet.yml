@@ -3,10 +3,6 @@
   hosts: apic
   connection: local
   gather_facts: False
-  vars_prompt:
-    - name: "tenant"
-      prompt: "What would you like to name your Tenant?"
-      private: no
       
   tasks:
     - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_APP_BD

@@ -24,8 +24,7 @@ tasks:
         descr: "Tenant Created Using Ansible"
       tags: tenant, vrf, bd, filter, contract, app, epg
       
-  tasks:
-    - name: ENSURE TENANT VRF EXISTS
+  - name: ENSURE TENANT VRF EXISTS
       aci_vrf:
         host: "{{ ansible_host }}"
         username: "{{ username }}"

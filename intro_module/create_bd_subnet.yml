@@ -17,7 +17,7 @@
       prompt: "What would you like to name your VRF?"
       private: no
       
-tasks:
+  tasks:
     - name: TASK 01 - ENSURE APPLICATIONS TENANT EXISTS
       aci_tenant:
         host: "{{ inventory_hostname }}"

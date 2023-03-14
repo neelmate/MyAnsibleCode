@@ -39,7 +39,7 @@
         description: VRF Created Using Ansible
       tags: vrf, bd
     - name: CREATE BD SUBNET B2CC_ENTARCH_APP_BD
-      aci_bd:
+      cisco.aci.aci_bd:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
@@ -51,7 +51,7 @@
         arp_flooding: true
         description: INFRNET-4191 Openstack
     - name: Create SUBNET for B2CC_ENTARCH_APP_BD
-      aci_bd_subnet:
+      cisco.aci.aci_bd_subnet:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
@@ -62,7 +62,7 @@
         gateway: 10.51.68.254
         mask: 24
     - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_NFS_BD
-      aci_bd:
+      cisco.aci.aci_bd:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
@@ -73,7 +73,7 @@
         vrf: "{{ vrf }}"
         arp_flooding: true
     - name:
-        aci_bd_subnet:
+        cisco.aci.aci_bd_subnet:
           host: "{{ ansible_host }}"
           username: "{{ username }}"
           password: "{{ password }}"

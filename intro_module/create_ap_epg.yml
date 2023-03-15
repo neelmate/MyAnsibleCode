@@ -1,5 +1,5 @@
 ---
-- name: ENSURE APPLICATION CONFIGURATION EXISTS
+- name: Configure AP EPG and AEP
   hosts: apic
   connection: local
   gather_facts: false

@@ -1,0 +1,164 @@
+---
+- name: ENSURE APPLICATION CONFIGURATION EXISTS
+  hosts: apic
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: tenant
+      prompt: Which Tenant you want this change?
+      private: no
+    - name: vrf
+      prompt: Type name of your VRF?
+      private: no
+    - name: bd1
+      prompt: Type name of first Bridge Domain BD1?
+      private: no
+    - name: bd2
+      prompt: Type name of second Bridge Domain BD2?
+      private: no
+    - name: epg1
+      prompt: Type name of APP EPG1?
+      private: no
+    - name: epg2
+      prompt: Type name of Storage EPG2?
+      private: no
+    - name: ap
+      prompt: Type name of App Application Profile OPC_ANP?  ---- NOT REQUIRED
+      private: no
+    - name: aep1
+      prompt: Type name of AEP2 OS_COMPUTE_BOND1_AAEP?
+      private: no
+    - name: aep2
+      prompt: Type name of AEP2 OS_COMPUTE_BOND0_AAEP?
+      private: no
+    - name: encap-id1
+      prompt: Type name of APP encap-id1: like vlan-1068.
+      private: no
+    - name: encap-id2
+      prompt: Type name of NFS encap-id2: like vlan-1368.
+      private: no
+  tasks:
+    - name: TASK 01 - ENSURE APPLICATIONS TENANT EXISTS
+      cisco.aci.aci_tenant:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        description: Tenant Created Using Ansible
+      tags: tenant, vrf, bd, filter, contract, app, epg
+    - name: ENSURE TENANT VRF EXISTS
+      cisco.aci.aci_vrf:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        vrf: "{{ vrf }}"
+        description: VRF Created Using Ansible
+      tags: vrf, bd
+    - name: CREATE BD SUBNET B2CC_ENTARCH_APP_BD
+      cisco.aci.aci_bd:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        bd: "{{ bd1 }}"
+        vrf: "{{ vrf }}"
+        arp_flooding: true
+        description: INFRNET-4191 Openstack
+    - name: Create SUBNET for B2CC_ENTARCH_APP_BD
+      cisco.aci.aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        bd: "{{ bd1 }}"
+        gateway: 10.51.68.254
+        mask: 24
+    - name: CREATE BRIDGE DOMAIN SUBNET B2CC_ENTARCH_NFS_BD
+      cisco.aci.aci_bd:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        bd: "{{ bd2 }}"
+        vrf: "{{ vrf }}"
+        arp_flooding: true
+    - name:
+      cisco.aci.aci_bd_subnet:
+          host: "{{ ansible_host }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          state: present
+          validate_certs: false
+          tenant: "{{ tenant }}"
+          bd: "{{ bd2 }}"
+          gateway: 10.51.168.254
+          mask: 24
+    - name: Add a new AP ------ THIS IS NOT REQUIRED AS WE ARE USING EXISTING
+      cisco.aci.aci_ap:
+          host: "{{ ansible_host }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          state: present
+          validate_certs: false
+          tenant: "{{ tenant }}
+          ap: "{{ ap1 }}"
+          description: default ap
+          monitoring_policy: default
+          state: present
+      delegate_to: localhost
+    - name: Add a new App AEP1
+      cisco.aci.aci_aep:
+          host: "{{ ansible_host }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          ap: "{{ ap }}"
+          description: default
+          infra_vlan: true
+          state: present
+      delegate_to: localhost
+    - name: Add a new NFS AEP2
+      cisco.aci.aci_aep:
+          host: "{{ ansible_host }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          ap: "{{ ap }}"
+          description: default
+          infra_vlan: true
+          state: present
+      delegate_to: localhost
+    - name: Associate EPG1 with AEP1
+      cisco.aci.aci_aep_to_epg:
+          host: "{{ ansible_host }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          tenant: "{{ tenant }}"
+          ap: "{{ ap }}"
+          epg: "{{ epg1 }}"
+          encap_id: "{{ encap-id1 }}"
+          interface_mode: trunk
+          state: present
+      delegate_to: localhost
+    - name: Associate EPG2 with AEP2
+      cisco.aci.aci_aep_to_epg:
+          host: "{{ ansible_host }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          aep: OS_COMPUTE_BOND1_AAEP
+          tenant: "{{ tenant }}"
+          ap: "{{ ap }}"
+          epg: "{{ epg2 }}"
+          encap_id: "{{ encap-id2 }}"
+          interface_mode: trunk
+          state: present
+      delegate_to: localhost

@@ -104,6 +104,19 @@
           bd: "{{ bd2 }}"
           gateway: 10.51.168.254
           mask: 24
+    - name: Add a new AP ------ THIS IS NOT REQUIRED AS WE ARE USING EXISTING
+      cisco.aci.aci_ap:
+          host: "{{ ansible_host }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          state: present
+          validate_certs: false
+          tenant: "{{ tenant }}
+          ap: "{{ ap1 }}"
+          description: default ap
+          monitoring_policy: default
+          state: present
+      delegate_to: localhost
     - name: Add a new App AEP1
       cisco.aci.aci_aep:
           host: "{{ ansible_host }}"

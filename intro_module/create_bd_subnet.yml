@@ -23,10 +23,19 @@
       prompt: Type name of Storage EPG2?
       private: no
     - name: ap1
-      prompt: Type name of App Application Profile 1?
+      prompt: Type name of App Application Profile OPC_ANP?
       private: no
-    - name: ap2
-      prompt: Type name of Storage Application Profile 2?
+    - name: aep1
+      prompt: Type name of AEP2 OS_COMPUTE_BOND1_AAEP?
+      private: no
+    - name: aep2
+      prompt: Type name of AEP2 OS_COMPUTE_BOND0_AAEP?
+      private: no
+    - name: aep1
+      prompt: Type name of APP encap-id1: like vlan-1068.
+      private: no
+    - name: aep2
+      prompt: Type name of NFS encap-id2: like vlan-1368.
       private: no
   tasks:
     - name: TASK 01 - ENSURE APPLICATIONS TENANT EXISTS

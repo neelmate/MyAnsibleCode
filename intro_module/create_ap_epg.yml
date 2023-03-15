@@ -1,1 +1,30 @@
-
+---
+- name: ENSURE APPLICATION CONFIGURATION EXISTS
+  hosts: apic
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: tenant
+      prompt: Which Tenant you want this change?
+      private: no
+    - name: vrf
+      prompt: Type name of your VRF?
+      private: no
+    - name: bd1
+      prompt: Type name of first Bridge Domain BD1?
+      private: no
+    - name: bd2
+      prompt: Type name of second Bridge Domain BD2?
+      private: no
+  tasks:
+- name: Add AEP to domain binding
+  cisco.aci.aci_aep_to_domain: &binding_present
+    host: "{{ ansible_host }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    state: present
+    aep: OS_COMPUTE_BOND1_AAEP
+    domain: phys_dom
+    domain_type: phys
+    state: present
+  delegate_to: localhost

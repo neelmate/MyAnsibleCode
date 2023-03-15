@@ -26,17 +26,6 @@
         ipv6_l3_unknown_multicast: flood
         multi_dest: bd-flood
         description: INFRNET-4191 Openstack
-    - name: Creating BD1 SUBNET/24
-      cisco.aci.aci_bd_subnet:
-        host: "{{ ansible_host }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
-        state: present
-        validate_certs: false
-        tenant: "{{ tenant }}"
-        bd: "{{ bd1 }}"
-        gateway: "{{ gw1 }}"
-        mask: 24
     - name: Creating Bridge Domain BD2.
       cisco.aci.aci_bd:
         host: "{{ ansible_host }}"
@@ -54,6 +43,17 @@
         l3_unknown_multicast: flood
         ipv6_l3_unknown_multicast: flood
         multi_dest: bd-flood
+    - name: Creating BD1 SUBNET/24
+      cisco.aci.aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        bd: "{{ bd1 }}"
+        gateway: "{{ gw1 }}"
+        mask: 24
     - name: Creating BD2 SUBNET/24
       cisco.aci.aci_bd_subnet:
           host: "{{ ansible_host }}"

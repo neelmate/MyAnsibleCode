@@ -54,6 +54,7 @@
         bd: "{{ bd1 }}"
         gateway: "{{ gw1 }}"
         mask: 24
+        description: INFRNET-4191 Openstack
     - name: Creating BD2 SUBNET/24
       cisco.aci.aci_bd_subnet:
           host: "{{ ansible_host }}"

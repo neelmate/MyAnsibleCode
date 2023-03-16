@@ -40,17 +40,18 @@
 	description: SERVER_VLP
 	state: present
       delegate_to: localhost
-    - name: Add a new VLAN encap block
-      cisco.aci.aci_vlan_pool_encap_block:
-	host: "{{ ansible_host }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
-	allocation_mode: inherit
+    - name: Add a new VLAN pool range
+      cisco.aci.aci_encap_pool_range:
+	host: apic
+	username: admin
+	password: SomeSecretPassword
 	pool: SERVER_VLP
+	pool_type: vlan
 	pool_allocation_mode: static
-	block_name: Block 1
-	block_start: 1000
-	block_end: 1999
+	range_name: Block 1
+	range_start: 1000
+	range_end: 1999
+	allocation_mode: inherit
 	state: present
       delegate_to: localhost
     - name: Add domain to VLAN pool binding

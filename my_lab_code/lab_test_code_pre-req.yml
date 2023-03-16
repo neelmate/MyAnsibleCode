@@ -46,7 +46,7 @@
         pool: SERVER_VLP
         pool_type: vlan
         pool_allocation_mode: static
-        range_name: Block 1
+        range_name: SERVER_VLP
         range_start: 1000
         range_end: 1999
         allocation_mode: inherit

@@ -82,7 +82,7 @@
         state: present
         validate_certs: false
         tenant: "{{ tenant }}"
-        ap: "{{ ap1 }}"
+        ap: "{{ ap }}"
         description: default ap
         monitoring_policy: default
         state: present

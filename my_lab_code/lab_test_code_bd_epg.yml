@@ -78,7 +78,7 @@
         tenant: "{{ tenant }}"
         ap: "{{ ap }}"
         epg: "{{ epg1 }}"
-        encap_id: "{{ encap-id1 }}"
+        vlan-id: "{{ vlan-id1 }}"
         interface_mode: trunk
         state: present
     - name: Associate EPG2 with AEP2
@@ -90,6 +90,6 @@
         tenant: "{{ tenant }}"
         ap: "{{ ap }}"
         epg: "{{ epg2 }}"
-        encap_id: "{{ encap-id2 }}"
+        vlan-id: "{{ vlan-id2 }}"
         interface_mode: trunk
         state: present

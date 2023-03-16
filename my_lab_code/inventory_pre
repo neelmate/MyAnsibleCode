@@ -1,6 +1,5 @@
 [apic:vars]
 username=admin
-password=L0gadmin@17
 ansible_python_interpreter="/usr/bin/env python"
 vrf=OPC_VRF
 ap=OPC_ANP

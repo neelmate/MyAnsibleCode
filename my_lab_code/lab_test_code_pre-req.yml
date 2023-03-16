@@ -65,6 +65,7 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        validate_certs: false
         domain: SERVER_PD
         domain_type: phys
         pool: SERVER_VLP
@@ -100,6 +101,7 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        validate_certs: false
         aep: "{{ aep2 }}"
         description: default
         infra_vlan: true

@@ -17,7 +17,7 @@
         validate_certs: false
         tenant: "{{ tenant }}"
         description: Tenant Created Using Ansible
-		tags: tenant, vrf, bd, filter, contract, app, epg
+      tags: tenant, vrf, bd, filter, contract, app, epg
     - name: ENSURE TENANT VRF EXISTS
       cisco.aci.aci_vrf:
         host: "{{ ansible_host }}"
@@ -29,32 +29,45 @@
         vrf: "{{ vrf }}"
         description: VRF Created Using Ansible
         tags: vrf, bd
-	- name: Add a new VLAN pool
-	  cisco.aci.aci_vlan_pool:
-		host: "{{ ansible_host }}"
+    - name: Add a new VLAN pool
+      cisco.aci.aci_vlan_pool:
+	host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-		pool: SERVER_VLP
-		pool_allocation_mode: static
-		description: SERVER_VLP
-		state: present
-        delegate_to: localhost
-	- name: Add a new VLAN encap block
-	  cisco.aci.aci_vlan_pool_encap_block:
-		host: "{{ ansible_host }}"
+	pool: SERVER_VLP
+	pool_type: vlan
+	pool_allocation_mode: static
+	description: SERVER_VLP
+	state: present
+      delegate_to: localhost
+    - name: Add a new VLAN encap block
+      cisco.aci.aci_vlan_pool_encap_block:
+	host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-		allocation_mode: inherit
-		pool: SERVER_VLP
-		pool_allocation_mode: static
-		block_name: Block 1
-		block_start: 1000
-		block_end: 1999
-		state: present
-        delegate_to: localhost
+	allocation_mode: inherit
+	pool: SERVER_VLP
+	pool_allocation_mode: static
+	block_name: Block 1
+	block_start: 1000
+	block_end: 1999
+	state: present
+      delegate_to: localhost
+    - name: Add domain to VLAN pool binding
+      cisco.aci.aci_domain_to_encap_pool:
+	host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        domain: phys_dom
+        domain_type: phys
+        pool: SERVER_VLP
+        pool_type: vlan
+        pool_allocation_mode: static
+       state: present
+      delegate_to: localhost
     - name: Add a new AP
       cisco.aci.aci_ap:
-		host: "{{ ansible_host }}"
+	host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
         state: present
@@ -64,7 +77,7 @@
         description: default ap
         monitoring_policy: default
         state: present
-        delegate_to: localhost
+      delegate_to: localhost
     - name: Add a new App AEP
       cisco.aci.aci_aep:
         host: "{{ ansible_host }}"
@@ -74,16 +87,16 @@
         description: default
         infra_vlan: true
         state: present
-		delegate_to: localhost
+      delegate_to: localhost
     - name: Add a new NFS AEP
       cisco.aci.aci_aep:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-		aep: "{{ aep2 }}"
-		description: default
-		infra_vlan: true
-		state: present
+	aep: "{{ aep2 }}"
+	description: default
+	infra_vlan: true
+	state: present
       delegate_to: localhost
     - name: Creating Bridge Domain BD1.
       cisco.aci.aci_bd:
@@ -130,8 +143,8 @@
         tenant: "{{ tenant }}"
         bd: "{{ bd1 }}"
         gateway: "{{ gw1 }}"
-		mask: 24
-		description: INFRNET-4191 Openstack
+	mask: 24
+	description: INFRNET-4191 Openstack
     - name: Creating BD2 SUBNET/24
       cisco.aci.aci_bd_subnet:
         host: "{{ ansible_host }}"
@@ -154,7 +167,7 @@
         encap_id: "{{ encap-id1 }}"
         interface_mode: trunk
         state: present
-	delegate_to: localhost
+      delegate_to: localhost
     - name: Associate EPG2 with AEP2
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"
@@ -167,4 +180,4 @@
         encap_id: "{{ encap-id2 }}"
         interface_mode: trunk
         state: present
-	delegate_to: localhost
+     delegate_to: localhost

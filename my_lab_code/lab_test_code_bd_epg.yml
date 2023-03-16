@@ -3,6 +3,13 @@
   hosts: apic
   connection: local
   gather_facts: false
+    vars_prompt:
+    - name: password
+      prompt: Type your APIC Password.
+      private: yes
+    - name: tenant
+      prompt: Which Tenant you want this change?
+      private: no
   tasks:
     - name: Creating Bridge Domain BD1.
       cisco.aci.aci_bd:
@@ -73,7 +80,6 @@
         encap_id: "{{ encap-id1 }}"
         interface_mode: trunk
         state: present
-      delegate_to: localhost
     - name: Associate EPG2 with AEP2
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"
@@ -86,4 +92,3 @@
         encap_id: "{{ encap-id2 }}"
         interface_mode: trunk
         state: present
-     delegate_to: localhost

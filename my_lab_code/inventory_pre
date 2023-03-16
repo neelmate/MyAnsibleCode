@@ -1,0 +1,19 @@
+[apic:vars]
+username=admin
+password=L0gadmin@17
+ansible_python_interpreter="/usr/bin/env python"
+vrf=OPC_VRF
+ap=OPC_ANP
+bd1=B2CC_ENTARCH_APP_BD
+gw1=10.51.68.254
+epg1=B2CC_ENTARCH_APP_EPG
+aep1=OS_COMPUTE_BOND1_AAEP
+encap-id1=vlan-1068
+bd2=B2CC_ENTARCH_NFS_BD
+gw2=10.51.168.254
+epg2=B2CC_ENTARCH_NFS_EPG
+aep2=OS_COMPUTE_BOND0_AAEP
+encap-id2=vlan-1368
+
+[apic]
+192.168.1.155

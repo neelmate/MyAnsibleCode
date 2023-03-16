@@ -8,7 +8,7 @@
       prompt: Which Tenant you want this change?
       private: no
     - name: password
-      prompt: Type you APIC Password:
+      prompt: Type your APIC Password.
       private: yes
   tasks:
     - name: ENSURE APPLICATIONS TENANT EXISTS

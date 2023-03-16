@@ -33,7 +33,6 @@
         username: "{{ username }}"
         password: "{{ password }}"
         pool: SERVER_VLP
-        pool_type: vlan
         pool_allocation_mode: static
         description: SERVER_VLP
         state: present

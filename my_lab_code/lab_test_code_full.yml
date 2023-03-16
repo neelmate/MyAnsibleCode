@@ -31,44 +31,52 @@
         tags: vrf, bd
     - name: Add a new VLAN pool
       cisco.aci.aci_vlan_pool:
-	host: "{{ ansible_host }}"
+        host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-	pool: SERVER_VLP
-	pool_type: vlan
-	pool_allocation_mode: static
-	description: SERVER_VLP
-	state: present
+        pool: SERVER_VLP
+        pool_type: vlan
+        pool_allocation_mode: static
+        description: SERVER_VLP
+        state: present
       delegate_to: localhost
     - name: Add a new VLAN pool range
       cisco.aci.aci_encap_pool_range:
-	host: apic
-	username: admin
-	password: SomeSecretPassword
-	pool: SERVER_VLP
-	pool_type: vlan
-	pool_allocation_mode: static
-	range_name: Block 1
-	range_start: 1000
-	range_end: 1999
-	allocation_mode: inherit
-	state: present
+        host: apic
+        username: admin
+        password: SomeSecretPassword
+        pool: SERVER_VLP
+        pool_type: vlan
+        pool_allocation_mode: static
+        range_name: Block 1
+        range_start: 1000
+        range_end: 1999
+        allocation_mode: inherit
+        state: present
       delegate_to: localhost
-    - name: Add domain to VLAN pool binding
-      cisco.aci.aci_domain_to_encap_pool:
-	host: "{{ ansible_host }}"
+    - name: Add a new physical domain
+      cisco.aci.aci_domain:
+        host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        domain: phys_dom
+        domain: SERVER_PD
+        domain_type: phys
+        state: present
+    - name: Add domain to VLAN pool binding
+      cisco.aci.aci_domain_to_encap_pool:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        domain: SERVER_PD
         domain_type: phys
         pool: SERVER_VLP
         pool_type: vlan
         pool_allocation_mode: static
-       state: present
+        state: present
       delegate_to: localhost
     - name: Add a new AP
       cisco.aci.aci_ap:
-	host: "{{ ansible_host }}"
+        host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
         state: present
@@ -94,10 +102,10 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-	aep: "{{ aep2 }}"
-	description: default
-	infra_vlan: true
-	state: present
+        aep: "{{ aep2 }}"
+        description: default
+        infra_vlan: true
+        state: present
       delegate_to: localhost
     - name: Creating Bridge Domain BD1.
       cisco.aci.aci_bd:
@@ -144,8 +152,8 @@
         tenant: "{{ tenant }}"
         bd: "{{ bd1 }}"
         gateway: "{{ gw1 }}"
-	mask: 24
-	description: INFRNET-4191 Openstack
+        mask: 24
+        description: INFRNET-4191 Openstack
     - name: Creating BD2 SUBNET/24
       cisco.aci.aci_bd_subnet:
         host: "{{ ansible_host }}"

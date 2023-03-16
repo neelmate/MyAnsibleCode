@@ -12,7 +12,7 @@
   tasks:
     - name: Ensure API key is present in configuration1 file
       ansible.builtin.lineinfile:
-        path: /home/MyAnsibleCode/secret/configuration1.ini
+        path: /home/nilesh/MyAnsibleCode/secret/configuration1.ini
         line: "APIC_Password={{ password }}"
     - name: ENSURE APPLICATIONS TENANT EXISTS
       cisco.aci.aci_tenant:

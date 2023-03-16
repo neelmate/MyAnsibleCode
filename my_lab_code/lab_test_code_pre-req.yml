@@ -47,8 +47,8 @@
         pool_type: vlan
         pool_allocation_mode: static
         range_name: Block 1
-        range_start: vlan-1000
-        range_end: vlan-1999
+        range_start: 1000
+        range_end: 1999
         allocation_mode: inherit
         state: present
     - name: Add a new physical domain

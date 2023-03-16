@@ -1,0 +1,192 @@
+---
+- name: CREATE NEW BD EPG CONFIGURATION
+  hosts: apic
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: tenant
+      prompt: Which Tenant you want this change?
+      private: no
+  tasks:
+    - name: ENSURE APPLICATIONS TENANT EXISTS
+      cisco.aci.aci_tenant:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        description: Tenant Created Using Ansible
+      tags: tenant, vrf, bd, filter, contract, app, epg
+    - name: ENSURE TENANT VRF EXISTS
+      cisco.aci.aci_vrf:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        vrf: "{{ vrf }}"
+        description: VRF Created Using Ansible
+        tags: vrf, bd
+    - name: Add a new VLAN pool
+      cisco.aci.aci_vlan_pool:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        pool: SERVER_VLP
+        pool_type: vlan
+        pool_allocation_mode: static
+        description: SERVER_VLP
+        state: present
+      delegate_to: localhost
+    - name: Add a new VLAN pool range
+      cisco.aci.aci_encap_pool_range:
+        host: apic
+        username: admin
+        password: SomeSecretPassword
+        pool: SERVER_VLP
+        pool_type: vlan
+        pool_allocation_mode: static
+        range_name: Block 1
+        range_start: 1000
+        range_end: 1999
+        allocation_mode: inherit
+        state: present
+      delegate_to: localhost
+    - name: Add a new physical domain
+      cisco.aci.aci_domain:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        domain: SERVER_PD
+        domain_type: phys
+        state: present
+    - name: Add domain to VLAN pool binding
+      cisco.aci.aci_domain_to_encap_pool:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        domain: SERVER_PD
+        domain_type: phys
+        pool: SERVER_VLP
+        pool_type: vlan
+        pool_allocation_mode: static
+        state: present
+      delegate_to: localhost
+    - name: Add a new AP
+      cisco.aci.aci_ap:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        ap: "{{ ap1 }}"
+        description: default ap
+        monitoring_policy: default
+        state: present
+      delegate_to: localhost
+    - name: Add a new App AEP
+      cisco.aci.aci_aep:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        aep: "{{ aep1 }}"
+        description: default
+        infra_vlan: true
+        state: present
+      delegate_to: localhost
+    - name: Add a new NFS AEP
+      cisco.aci.aci_aep:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        aep: "{{ aep2 }}"
+        description: default
+        infra_vlan: true
+        state: present
+      delegate_to: localhost
+    - name: Creating Bridge Domain BD1.
+      cisco.aci.aci_bd:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        bd: "{{ bd1 }}"
+        vrf: "{{ vrf }}"
+        arp_flooding: true
+        bd_type: ethernet
+        enable_routing: true
+        l2_unknown_unicast: proxy 
+        l3_unknown_multicast: flood
+        ipv6_l3_unknown_multicast: flood
+        multi_dest: bd-flood
+        description: INFRNET-4191 Openstack
+    - name: Creating Bridge Domain BD2.
+      cisco.aci.aci_bd:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        bd: "{{ bd2 }}"
+        vrf: "{{ vrf }}"
+        arp_flooding: true
+        bd_type: ethernet
+        enable_routing: true
+        l2_unknown_unicast: proxy 
+        l3_unknown_multicast: flood
+        ipv6_l3_unknown_multicast: flood
+        multi_dest: bd-flood
+    - name: Creating BD1 SUBNET/24
+      cisco.aci.aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        bd: "{{ bd1 }}"
+        gateway: "{{ gw1 }}"
+        mask: 24
+        description: INFRNET-4191 Openstack
+    - name: Creating BD2 SUBNET/24
+      cisco.aci.aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        bd: "{{ bd2 }}"
+        gateway: "{{ gw2 }}"
+        mask: 24
+    - name: Associate EPG1 with AEP1
+      cisco.aci.aci_aep_to_epg:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        tenant: "{{ tenant }}"
+        ap: "{{ ap }}"
+        epg: "{{ epg1 }}"
+        encap_id: "{{ encap-id1 }}"
+        interface_mode: trunk
+        state: present
+      delegate_to: localhost
+    - name: Associate EPG2 with AEP2
+      cisco.aci.aci_aep_to_epg:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        aep: OS_COMPUTE_BOND1_AAEP
+        tenant: "{{ tenant }}"
+        ap: "{{ ap }}"
+        epg: "{{ epg2 }}"
+        encap_id: "{{ encap-id2 }}"
+        interface_mode: trunk
+        state: present
+     delegate_to: localhost

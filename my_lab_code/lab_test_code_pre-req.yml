@@ -84,7 +84,6 @@
         description: default ap
         monitoring_policy: default
         state: present
-      delegate_to: localhost
     - name: Add a new App AEP
       cisco.aci.aci_aep:
         host: "{{ ansible_host }}"
@@ -95,7 +94,6 @@
         description: default
         infra_vlan: true
         state: present
-      delegate_to: localhost
     - name: Add a new NFS AEP
       cisco.aci.aci_aep:
         host: "{{ ansible_host }}"

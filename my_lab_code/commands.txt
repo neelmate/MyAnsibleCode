@@ -1,0 +1,7 @@
+first I ran a pre-requisite code to build tenant, vrf, vlan pool, physical domain, ap and aep etc
+
+/b
+#ansible-playbook lab_test_code_pre-req.yml -i inventory_pre
+b/
+
+(venv) nilesh@ubuntu-2204:~/MyAnsibleCode/my_lab_code$ ansible-playbook lab_test_code_pre-req.yml -i inventory_pre 

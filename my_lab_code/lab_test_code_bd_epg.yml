@@ -74,18 +74,20 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        validate_certs: false
+        state: present
         aep: "{{ aep1 }}"
         tenant: "{{ tenant }}"
         ap: "{{ ap }}"
         epg: "{{ epg1 }}"
         vlan: "{{ vlan1 }}"
         interface_mode: trunk
-        state: present
     - name: Associate EPG2 with AEP2
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        validate_certs: false
         aep: "{{ aep2 }}"
         tenant: "{{ tenant }}"
         ap: "{{ ap }}"

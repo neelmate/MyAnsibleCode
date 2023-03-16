@@ -4,12 +4,12 @@
   connection: local
   gather_facts: false
   vars_prompt:
-    - name: tenant
-      prompt: Which Tenant you want this change?
-      private: no
     - name: password
       prompt: Type your APIC Password.
       private: yes
+    - name: tenant
+      prompt: Which Tenant you want this change?
+      private: no
   tasks:
     - name: ENSURE APPLICATIONS TENANT EXISTS
       cisco.aci.aci_tenant:

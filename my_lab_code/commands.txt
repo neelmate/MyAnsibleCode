@@ -1,7 +1,9 @@
-first I ran a pre-requisite code to build tenant, vrf, vlan pool, physical domain, ap and aep etc
+Step1. first I ran a pre-requisite code to build tenant, vrf, vlan pool, physical domain, ap and aep etc
 
-/b
 #ansible-playbook lab_test_code_pre-req.yml -i inventory_pre
-b/
 
 (venv) nilesh@ubuntu-2204:~/MyAnsibleCode/my_lab_code$ ansible-playbook lab_test_code_pre-req.yml -i inventory_pre 
+
+
+
+Step2. now we can run command ro build BD, subnets, EPG and AEP binding of vlan

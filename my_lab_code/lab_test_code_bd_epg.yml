@@ -74,6 +74,7 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        aep: "{{ aep1 }}"
         tenant: "{{ tenant }}"
         ap: "{{ ap }}"
         epg: "{{ epg1 }}"
@@ -85,7 +86,7 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        aep: OS_COMPUTE_BOND1_AAEP
+        aep: "{{ aep2 }}"
         tenant: "{{ tenant }}"
         ap: "{{ ap }}"
         epg: "{{ epg2 }}"

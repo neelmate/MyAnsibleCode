@@ -37,7 +37,6 @@
         pool_allocation_mode: static
         description: SERVER_VLP
         state: present
-      delegate_to: localhost
     - name: Add a new VLAN pool range
       cisco.aci.aci_encap_pool_range:
         host: apic
@@ -51,7 +50,6 @@
         range_end: 1999
         allocation_mode: inherit
         state: present
-      delegate_to: localhost
     - name: Add a new physical domain
       cisco.aci.aci_domain:
         host: "{{ ansible_host }}"
@@ -71,7 +69,6 @@
         pool_type: vlan
         pool_allocation_mode: static
         state: present
-      delegate_to: localhost
     - name: Add a new AP
       cisco.aci.aci_ap:
         host: "{{ ansible_host }}"
@@ -104,4 +101,3 @@
         description: default
         infra_vlan: true
         state: present
-      delegate_to: localhost

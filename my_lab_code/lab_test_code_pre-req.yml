@@ -32,15 +32,17 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        validate_certs: false
         pool: SERVER_VLP
         pool_allocation_mode: static
         description: SERVER_VLP
         state: present
     - name: Add a new VLAN pool range
       cisco.aci.aci_encap_pool_range:
-        host: apic
-        username: admin
-        password: SomeSecretPassword
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: false
         pool: SERVER_VLP
         pool_type: vlan
         pool_allocation_mode: static
@@ -54,6 +56,7 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        validate_certs: false
         domain: SERVER_PD
         domain_type: phys
         state: present
@@ -73,8 +76,8 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: present
         validate_certs: false
+        state: present
         tenant: "{{ tenant }}"
         ap: "{{ ap }}"
         description: default ap
@@ -86,6 +89,7 @@
         host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        validate_certs: false
         aep: "{{ aep1 }}"
         description: default
         infra_vlan: true

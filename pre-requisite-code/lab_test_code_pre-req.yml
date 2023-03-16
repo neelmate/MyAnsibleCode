@@ -7,7 +7,13 @@
     - name: tenant
       prompt: Which Tenant you want this change?
       private: no
+    - name: password
+      prompt: Type you APIC Password:
   tasks:
+    - name: Ensure API key is present in config file
+      ansible.builtin.lineinfile:
+        path: /home/MyAnsibleCode/secret/configuration.ini
+        line: "APIC_Password={{ password }}"
     - name: ENSURE APPLICATIONS TENANT EXISTS
       cisco.aci.aci_tenant:
         host: "{{ inventory_hostname }}"

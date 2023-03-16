@@ -10,9 +10,9 @@
     - name: password
       prompt: Type you APIC Password:
   tasks:
-    - name: Ensure API key is present in config file
+    - name: Ensure API key is present in configuration1 file
       ansible.builtin.lineinfile:
-        path: /home/MyAnsibleCode/secret/configuration.ini
+        path: /home/MyAnsibleCode/secret/configuration1.ini
         line: "APIC_Password={{ password }}"
     - name: ENSURE APPLICATIONS TENANT EXISTS
       cisco.aci.aci_tenant:

@@ -56,7 +56,7 @@
         tenant: "{{ tenant }}"
         bd: "{{ bd1 }}"
         gateway: "{{ gw1 }}"
-        mask: "{{ mask }}"
+        mask: "{{ mask1 }}"
         description: "{{ ticket }}"
     - name: Creating BD2 SUBNET "{{ subnet2 }}"
       cisco.aci.aci_bd_subnet:
@@ -68,7 +68,7 @@
         tenant: "{{ tenant }}"
         bd: "{{ bd2 }}"
         gateway: "{{ gw2 }}"
-        mask: "{{ mask }}"
+        mask: "{{ mask2 }}"
     - name: Associate EPG1 "{{ epg1 }}" with AEP "{{ aep1 }}"
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"

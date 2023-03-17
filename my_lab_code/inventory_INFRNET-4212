@@ -2,7 +2,7 @@
 username=admin
 ansible_python_interpreter="/usr/bin/env python"
 ticket=INFRNET-4212
-description= Openstack-ENTARCH
+description=Openstack-ENTARCH
 vrf=OPC_VRF
 ap=OPC_ANP
 bd1=B2CC_ENTARCH_APP_BD

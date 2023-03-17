@@ -1,5 +1,5 @@
 ---
-- name: CREATE NEW "{{ description }}" BD EPG NETWORK CONFIGURATION
+- name: CREATE NEW BD EPG NETWORK CONFIGURATION
   hosts: apic
   connection: local
   gather_facts: false

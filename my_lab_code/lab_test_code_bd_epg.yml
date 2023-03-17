@@ -69,7 +69,7 @@
         bd: "{{ bd2 }}"
         gateway: "{{ gw2 }}"
         mask: "{{ mask }}"
-    - name: Associate EPG1 "{{ epg1 }}" with AEP1
+    - name: Associate EPG1 "{{ epg1 }}" with AEP "{{ aep1 }}"
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
@@ -82,7 +82,7 @@
         epg: "{{ epg1 }}"
         vlan: "{{ vlan1 }}"
         interface_mode: trunk
-    - name: Associate EPG2 "{{ epg2 }}" with AEP2
+    - name: Associate EPG2 "{{ epg2 }}" with AEP "{{ aep12 }}"
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"
         username: "{{ username }}"

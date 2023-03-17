@@ -28,7 +28,7 @@
         l3_unknown_multicast: flood
         ipv6_l3_unknown_multicast: flood
         multi_dest: bd-flood
-        description: "{{ ticket }}" "{{ description }}"
+        description: "{{ ticket }}"
     - name: Creating Bridge Domain BD2 "{{ bd2 }}".
       cisco.aci.aci_bd:
         host: "{{ ansible_host }}"
@@ -57,7 +57,7 @@
         bd: "{{ bd1 }}"
         gateway: "{{ gw1 }}"
         mask: "{{ mask }}"
-        description: "{{ ticket }}" "{{ description }}"
+        description: "{{ ticket }}"
     - name: Creating BD2 SUBNET "{{ subnet2 }}"
       cisco.aci.aci_bd_subnet:
         host: "{{ ansible_host }}"

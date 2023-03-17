@@ -1,5 +1,5 @@
 ---
-- name: CREATE NEW OpenStack BD EPG NETWORK CONFIGURATION
+- name: CREATE NEW "{{ description }}" BD EPG NETWORK CONFIGURATION
   hosts: apic
   connection: local
   gather_facts: false
@@ -46,7 +46,7 @@
         l3_unknown_multicast: flood
         ipv6_l3_unknown_multicast: flood
         multi_dest: bd-flood
-    - name: Creating BD1 SUBNET/24
+    - name: Creating BD1 SUBNET "{{ subnet1 }}"
       cisco.aci.aci_bd_subnet:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
@@ -56,9 +56,9 @@
         tenant: "{{ tenant }}"
         bd: "{{ bd1 }}"
         gateway: "{{ gw1 }}"
-        mask: 24
-        description: INFRNET-4191 Openstack
-    - name: Creating BD2 SUBNET/24
+        mask: "{{ mask }}"
+        description: "{{ ticket }}" "{{ description }}"
+    - name: Creating BD2 SUBNET "{{ subnet2 }}"
       cisco.aci.aci_bd_subnet:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
@@ -68,8 +68,8 @@
         tenant: "{{ tenant }}"
         bd: "{{ bd2 }}"
         gateway: "{{ gw2 }}"
-        mask: 24
-    - name: Associate EPG1 with AEP1
+        mask: "{{ mask }}"
+    - name: Associate EPG1 "{{ epg1 }}" with AEP1
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
@@ -82,7 +82,7 @@
         epg: "{{ epg1 }}"
         vlan: "{{ vlan1 }}"
         interface_mode: trunk
-    - name: Associate EPG2 with AEP2
+    - name: Associate EPG2 "{{ epg2 }}" with AEP2
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"
         username: "{{ username }}"

@@ -82,7 +82,7 @@
         epg: "{{ epg1 }}"
         vlan: "{{ vlan1 }}"
         interface_mode: trunk
-    - name: Associate EPG2 "{{ epg2 }}" with AEP "{{ aep12 }}"
+    - name: Associate EPG2 "{{ epg2 }}" with AEP "{{ aep2 }}"
       cisco.aci.aci_aep_to_epg:
         host: "{{ ansible_host }}"
         username: "{{ username }}"

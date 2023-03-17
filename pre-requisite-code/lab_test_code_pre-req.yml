@@ -11,7 +11,7 @@
       prompt: Which Tenant you want this change?
       private: no
   tasks:
-    - name: ENSURE APPLICATIONS TENANT EXISTS
+    - name: ENSURE APPLICATIONS TENANT: "{{ tenant }}" EXISTS
       cisco.aci.aci_tenant:
         host: "{{ inventory_hostname }}"
         username: "{{ username }}"
@@ -20,7 +20,7 @@
         validate_certs: false
         tenant: "{{ tenant }}"
         description: Tenant Created Using Ansible
-    - name: ENSURE TENANT VRF EXISTS
+    - name: ENSURE TENANT VRF: "{{ vrf }}" EXISTS
       cisco.aci.aci_vrf:
         host: "{{ ansible_host }}"
         username: "{{ username }}"

@@ -1,23 +1,27 @@
 [apic:vars]
 username=admin
 ansible_python_interpreter="/usr/bin/env python"
+
 ticket=INFRNET-4212
 description=Openstack-ENTARCH
 vrf=OPC_VRF
 ap=OPC_ANP
+
+vlan1=1068
 bd1=B2CC_ENTARCH_APP_BD
 subnet1=10.51.68.0/24
 gw1=10.51.68.254
 epg1=B2CC_ENTARCH_APP_EPG
 aep1=OS_COMPUTE_BOND1_AAEP
-vlan1=1068
+mask1=24
+
+vlan2=1368
 bd2=B2CC_ENTARCH_NFS_BD
-subnet1=10.51.168.0/24
+subnet2=10.51.168.0/24
 gw2=10.51.168.254
 epg2=B2CC_ENTARCH_NFS_EPG
 aep2=OS_COMPUTE_BOND0_AAEP
-vlan2=1368
-mask=24
+mask2=24
 
 [apic]
 192.168.1.155

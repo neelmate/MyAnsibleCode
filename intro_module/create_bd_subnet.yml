@@ -32,10 +32,10 @@
       prompt: Type name of AEP2 OS_COMPUTE_BOND0_AAEP?
       private: no
     - name: encap-id1
-      prompt: Type name of APP encap-id1: like vlan-1068.
+      prompt: Type name of APP encap-id1 like vlan-1068.
       private: no
     - name: encap-id2
-      prompt: Type name of NFS encap-id2: like vlan-1368.
+      prompt: Type name of NFS encap-id2 like vlan-1368.
       private: no
   tasks:
     - name: TASK 01 - ENSURE APPLICATIONS TENANT EXISTS

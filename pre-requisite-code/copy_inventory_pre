@@ -1,6 +1,5 @@
 [apic:vars]
 username=admin
-password=!v3G@!4@Y
 ansible_python_interpreter="/usr/bin/env python"
 vrf=OPC_VRF
 ap=OPC_ANP
@@ -16,4 +15,4 @@ aep2=OS_COMPUTE_BOND0_AAEP
 encap-id2=vlan-1368
 
 [apic]
-sandboxapicdc.cisco.com
+192.168.1.155
